@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
     -webkit-font-smoothing: antialiased;
@@ -56,6 +57,12 @@
     --gap-horizontal: 12px;
     --gap-vertical: 20px;
 
+    /* Filter */
+    --filter-sky: invert(84%) sepia(23%) saturate(553%) hue-rotate(193deg) brightness(111%) contrast(104%);
+    --filter-azure: invert(46%) sepia(97%) saturate(2009%) hue-rotate(195deg) brightness(105%) contrast(94%);
+    --filter-sapphire: invert(57%) sepia(78%) saturate(7478%) hue-rotate(206deg) brightness(101%) contrast(93%);
+    --filter-navy: invert(20%) sepia(45%) saturate(5421%) hue-rotate(212deg) brightness(94%) contrast(97%);
+
     .pointer {
         cursor: pointer;
     }
@@ -65,15 +72,13 @@
         cursor: not-allowed;
         opacity: 0.5;
     }
-
-    /* Filter */
-    --filter-sky: invert(84%) sepia(23%) saturate(553%) hue-rotate(193deg) brightness(111%) contrast(104%);
-    --filter-azure: invert(46%) sepia(97%) saturate(2009%) hue-rotate(195deg) brightness(105%) contrast(94%);
-    --filter-sapphire: invert(57%) sepia(78%) saturate(7478%) hue-rotate(206deg) brightness(101%) contrast(93%);;
-    --filter-navy: invert(20%) sepia(45%) saturate(5421%) hue-rotate(212deg) brightness(94%) contrast(97%);
 }
 
 /* Fonts */
+input, textarea, select {
+    font-family: Inter, sans-serif;
+}
+
 @font-face {
     font-family: 'Titling gothic fb';
     src: url('https://cdn.morning.fr/fonts/TitlingGothicFBNormalMedium.otf') format('opentype');

@@ -9,7 +9,9 @@ export type BasicInputProps = {
 };
 
 export type InputProps = BasicInputProps & {
+  isRequired?: boolean;
   isError?: boolean;
+  placeholder?: string;
 };
 
 export const enum TriState {

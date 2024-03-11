@@ -1,0 +1,105 @@
+.wrapper {
+    position: relative;
+}
+
+.dropdown {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: var(--white);
+    box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+    border-radius: 4px;
+    z-index: 2;
+    margin-top: 6px;
+}
+
+.option {
+    color: var(--black);
+    margin: 3px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.option:hover {
+    background-color: var(--cloud);
+}
+
+.option.xs, .option.s {
+    height: 16px;
+    padding: 4px 10px 4px 12px;
+    font-size: 12px;
+}
+
+.option.m {
+    height: 16px;
+    padding: 6px 10px 6px 16px;
+    font-size: 14px;
+}
+
+.option.l, .option.xl {
+    height: 24px;
+    padding: 6px 12px 6px 16px;
+    font-size: 16px;
+}
+
+.option:first-child:last-child {
+    margin: 6px 0;
+}
+
+.option:first-child:not(:last-child) {
+    margin-top: 6px;
+}
+
+.option:last-child:not(:first-child) {
+    margin-bottom: 6px;
+}
+
+.selectedOption {
+    background-color: var(--silver);
+}
+
+.selectedOptionIcon {
+    filter: var(--filter-sapphire);
+}
+
+.highlightedOption {
+    background-color: var(--cloud);
+}
+
+.arrow {
+    z-index: 1;
+    position: absolute;
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.arrow.xs {
+    top: 23px;
+    right: 8px;
+}
+
+.arrow.s {
+    top: 25px;
+    right: 8px;
+}
+
+.arrow.m {
+    top: 28px;
+    right: 10px;
+}
+
+.arrow.l {
+    top: 30px;
+    right: 12px;
+}
+
+.arrow.xl {
+    top: 34px;
+    right: 12px;
+}
+
+.arrowUp {
+    transform: rotate(180deg);
+}
