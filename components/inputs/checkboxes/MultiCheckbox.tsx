@@ -67,7 +67,7 @@ const MultiCheckbox = ({
         const isHovered = index === hoveredIndex;
         const styleCheckbox = {
           ...styleCheckboxProps,
-          ...(isHovered && { backgroundColor: 'var(--ash)' }),
+          ...(isHovered && { backgroundColor: 'var(--silver)' }),
         };
         const checkboxState = value ? TriState.true : TriState.false;
 
