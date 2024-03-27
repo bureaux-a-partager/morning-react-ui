@@ -4,7 +4,7 @@ const atLeastOneTrue = (selectionState: SelectionState): boolean => {
   return Object.values(selectionState).some((value) => value === true);
 };
 
-const allTrue = (selectionState: SelectionState): boolean => {
+const isAllTrue = (selectionState: SelectionState): boolean => {
   return Object.values(selectionState).every((value) => value === true);
 };
 
@@ -45,13 +45,56 @@ const updateSelectionState = (
   return updatedState;
 };
 
-const selectionStateToString = (selectionState: SelectionState): string => {
+const selectionStateTrueToString = (
+  selectionState: SelectionState | undefined,
+): string => {
+  if (selectionState === undefined) return '';
   const stringRepresentation = Object.entries(selectionState)
     .filter(([, value]) => value)
     .map(([key]) => key)
     .join(', ');
 
   return stringRepresentation.length > 0 ? `${stringRepresentation},` : '';
+};
+
+const stateToValidatedState = (
+  state1: SelectionState | undefined,
+  state2: SelectionState | undefined,
+): SelectionState => {
+  const updatedState: SelectionState = state1 ? { ...state1 } : {};
+  if (!state2) return updatedState;
+
+  const keysToAdd: string[] = [];
+
+  Object.keys(state2).forEach((key) => {
+    if (state2[key] === false || state2[key] === undefined) {
+      delete updatedState[key];
+    } else if (state2[key] && !(key in updatedState)) {
+      keysToAdd.push(key);
+    }
+  });
+
+  keysToAdd.forEach((key) => {
+    updatedState[key] = true;
+  });
+
+  return updatedState;
+};
+
+const toggleSelectionStateAtIndex = (
+  state: SelectionState,
+  position: number | undefined,
+): SelectionState => {
+  const keys = Object.keys(state);
+  if (position === undefined || position < 0 || position >= keys.length) {
+    return state;
+  }
+
+  const keyToToggle = keys[position];
+  return {
+    ...state,
+    [keyToToggle]: !state[keyToToggle],
+  };
 };
 
 const removeLastElement = (
@@ -113,14 +156,16 @@ const getElementPositionInSelectionState = (
 
 export {
   atLeastOneTrue,
-  allTrue,
+  isAllTrue,
+  stateToValidatedState,
   setAllTrue,
   setAllFalse,
   getSelectionStatus,
   updateSelectionState,
-  selectionStateToString,
+  selectionStateTrueToString,
   removeLastElement,
   getCurrentElementFromCursorPosition,
   removeElementFromSelectionState,
   getElementPositionInSelectionState,
+  toggleSelectionStateAtIndex,
 };

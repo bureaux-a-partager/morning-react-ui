@@ -1,0 +1,13 @@
+.dropdown {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+    border-radius: 4px;
+    z-index: 1;
+    margin-top: 6px;
+    padding: 6px 0;
+    outline: none;
+
+}
