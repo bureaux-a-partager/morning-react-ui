@@ -19,7 +19,6 @@ const ParentInput = forwardRef<HTMLDivElement, ParentInputProps>(
       size = Size.m,
       children,
       inputRef,
-      style,
       disabled,
     },
     ref,
@@ -36,32 +35,33 @@ const ParentInput = forwardRef<HTMLDivElement, ParentInputProps>(
         className={classNames(
           styles.parentInput,
           styles[size],
-          disabled ? 'disabled' : '',
+          `font-size-${size}`,
+          { disabled: disabled },
         )}
       >
-        <div className={styles.labelsContainer}>
-          {label && (
-            <label
-              className={classNames(styles.label, {
-                [styles.bold]: isLabelBold,
-              })}
-              onClick={focusInput}
-            >
-              {label}
-            </label>
-          )}
-          {sublabel && (
-            <div
-              className={classNames(styles.sublabel, styles[size])}
-              onClick={focusInput}
-            >
-              {sublabel}
-            </div>
-          )}
-        </div>
-        <div className={styles.textAreaContainer} style={style}>
-          {children}
-        </div>
+        {(label || sublabel) && (
+          <div className={styles.labelsContainer}>
+            {label && (
+              <label
+                className={classNames(styles.label, {
+                  ['bold']: isLabelBold,
+                })}
+                onClick={focusInput}
+              >
+                {label}
+              </label>
+            )}
+            {sublabel && (
+              <div
+                className={classNames(styles.sublabel, styles[size])}
+                onClick={focusInput}
+              >
+                {sublabel}
+              </div>
+            )}
+          </div>
+        )}
+        {children}
       </div>
     );
   },

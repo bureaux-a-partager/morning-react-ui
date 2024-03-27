@@ -12,7 +12,7 @@ import React, {
 import classNames from 'classnames';
 import Image from 'next/image';
 import ParentInput from '@/components/inputs/ParentInput';
-import { Size, sizeToFontSize, sizeToHeight, sizeToNumber } from '@/utils/Enum';
+import { Size, sizeToNumber } from '@/utils/Enum';
 import { InputProps } from '@/components/inputs/types';
 import styles from '../input.module.css';
 import useInput from './useInput';

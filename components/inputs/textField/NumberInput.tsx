@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import classNames from 'classnames';
-import { Size, sizeToFontSize, sizeToHeight } from '@/utils/Enum';
+import { Size } from '@/utils/Enum';
 import ParentInput from '@/components/inputs/ParentInput';
 import { InputProps } from '@/components/inputs/types';
 import styles from '../input.module.css';

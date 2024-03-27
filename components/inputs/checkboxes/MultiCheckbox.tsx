@@ -16,8 +16,8 @@ type MultiCheckboxProps = BasicInputProps & {
   inline?: boolean;
   styleCheckbox?: CSSProperties;
   styleMultiCheckbox?: CSSProperties;
-  hoveredIndex?: number | undefined;
-  setHoveredIndex?: (index: number | undefined) => void;
+  hoveredIndex?: number | null;
+  setHoveredIndex?: (index: number | null) => void;
   isSelectAll?: boolean;
   selectAllLabel?: string;
   disabled?: boolean;
@@ -67,7 +67,7 @@ const MultiCheckbox = ({
         const isHovered = index === hoveredIndex;
         const styleCheckbox = {
           ...styleCheckboxProps,
-          ...(isHovered && { backgroundColor: 'var(--ash)' }),
+          ...(isHovered && { backgroundColor: 'var(--silver)' }),
         };
         const checkboxState = value ? TriState.true : TriState.false;
 
@@ -86,7 +86,7 @@ const MultiCheckbox = ({
             size={size}
             style={styleCheckbox}
             onMouseEnter={() => setHoveredIndex?.(index)}
-            onMouseLeave={() => setHoveredIndex?.(undefined)}
+            onMouseLeave={() => setHoveredIndex?.(null)}
             disabled={disabled}
             isError={isError}
           />

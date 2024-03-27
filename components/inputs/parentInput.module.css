@@ -1,66 +1,26 @@
 .label {
-    display: block;
-    font-weight: 600;
+  display: block;
+  font-weight: 600;
 }
 
 .label.bold {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .sublabel {
-    display: block;
-    color: var(--iron);
-    font-weight: 400;
+  display: block;
+  color: var(--iron);
+  font-weight: 400;
 }
 
 .labelsContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 6px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .parentInput {
-    display: flex;
-    flex-direction: column;
-}
-
-.parentInput.xs {
-    font-size: var(--font-size-xs);
-}
-
-.parentInput.s {
-    font-size: var(--font-size-s);
-}
-
-.parentInput.m {
-    font-size: var(--font-size-normal);
-}
-
-.parentInput.l {
-    font-size: var(--font-size-l);
-}
-
-.parentInput.xl {
-    font-size: var(--font-size-xl);
-}
-
-.sublabel.xs {
-    font-size: var(--font-size-xs);
-}
-
-.sublabel.s {
-    font-size: var(--font-size-xs);
-}
-
-.sublabel.m {
-    font-size: var(--font-size-s);
-}
-
-.sublabel.l {
-    font-size: var(--font-size-normal);
-}
-
-.sublabel.xl {
-    font-size: var(--font-size-l);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }

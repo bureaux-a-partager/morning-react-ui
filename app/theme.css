@@ -69,7 +69,6 @@
   --padding-s: 4px 8px;
   --padding-xs: 3px 6px;
 
-<<<<<<< HEAD
   /* Filter */
   --filter-sky: invert(84%) sepia(23%) saturate(553%) hue-rotate(193deg)
     brightness(111%) contrast(104%);
@@ -79,20 +78,6 @@
     brightness(101%) contrast(93%);
   --filter-navy: invert(20%) sepia(45%) saturate(5421%) hue-rotate(212deg)
     brightness(94%) contrast(97%);
-=======
-    *:disabled,
-    *.disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-        user-select: none;
-    }
-
-    /* Filter */
-    --filter-sky: invert(84%) sepia(23%) saturate(553%) hue-rotate(193deg) brightness(111%) contrast(104%);
-    --filter-azure: invert(46%) sepia(97%) saturate(2009%) hue-rotate(195deg) brightness(105%) contrast(94%);
-    --filter-sapphire: invert(57%) sepia(78%) saturate(7478%) hue-rotate(206deg) brightness(101%) contrast(93%);
-    --filter-navy: invert(20%) sepia(45%) saturate(5421%) hue-rotate(212deg) brightness(94%) contrast(97%);
->>>>>>> 1c0f80a (refacto inputs)
 }
 
 /* Fonts */
@@ -145,6 +130,10 @@
   cursor: not-allowed;
   opacity: 0.5;
   user-select: none;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 .font-size-xs {
