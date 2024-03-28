@@ -15,7 +15,7 @@ type CheckboxProps = {
 };
 
 type CheckboxHTMLProps = Omit<
-  React.HTMLProps<HTMLLabelElement>,
+  React.HTMLProps<HTMLDivElement>,
   keyof CheckboxProps
 >;
 
@@ -48,6 +48,7 @@ const Checkbox = ({
         fontSize: `${sizeToFontSize(size)}px`,
         ...style,
       }}
+      {...props}
     >
       <span
         className={checkboxClass}
@@ -60,7 +61,6 @@ const Checkbox = ({
       <label
         className={`${isError ? styles.error : styles.label} ${disabled ? 'disabled' : 'pointer'}`}
         onClick={handleClick}
-        {...props}
       >
         {label}
       </label>

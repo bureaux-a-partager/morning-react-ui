@@ -1,105 +1,38 @@
+.wrapper {
+  position: relative;
+  border: 1px solid var(--ash);
+  border-radius: 6px;
+  box-sizing: border-box;
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}
+
+.wrapper:focus-within {
+  outline: none;
+  border: 1px solid var(--sapphire);
+}
+
+.wrapper.error {
+  border-color: var(--brick);
+}
+
 .input {
-    padding: 6px 10px;
-    border: 1px solid var(--ash);
-    border-radius: 6px;
-    box-sizing: border-box;
-    width: 100%;
-    background: var(--white);
+  border: none;
+  flex-grow: 1;
+  background-color: var(--white);
+  user-select: none;
+  border-radius: 6px;
 }
 
 .input:focus {
-    outline: none;
-    border: 1px solid var(--sapphire);
+  outline: none;
 }
 
-.input.error {
-    border-color: var(--brick);
+.dropdownIcon {
+  transition: transform 0.3s ease;
 }
 
-.input.xs {
-    font-size: var(--font-size-xs);
-    padding: 4px 8px;
-}
-
-.input.s {
-    font-size: var(--font-size-s);
-    padding: 4px 8px;
-}
-
-.input.m {
-    font-size: var(--font-size-normal);
-    padding: 6px 10px;
-}
-
-.input.l {
-    font-size: var(--font-size-l);
-    padding: 6px 12px;
-}
-
-.input.xl {
-    font-size: var(--font-size-l);
-    padding: 8px 12px;
-}
-
-.input.hasImage.xs {
-    font-size: var(--font-size-xs);
-    padding: 4px 8px 4px 24px;
-}
-
-.input.hasImage.s {
-    font-size: var(--font-size-s);
-    padding: 4px 8px 4px 28px;
-}
-
-.input.hasImage.m {
-    font-size: var(--font-size-normal);
-    padding: 6px 10px 6px 34px;
-}
-
-.input.hasImage.l {
-    font-size: var(--font-size-l);
-    padding: 6px 12px 6px 40px;
-}
-
-.input.hasImage.xl {
-    font-size: var(--font-size-l);
-    padding: 8px 12px 8px 42px;
-}
-
-.wrapper {
-    position: relative;
-}
-
-.image.xs,
-.image.s,
-.image.m,
-.image.l,
-.image.xl {
-    z-index: 1;
-    position: absolute;
-}
-
-.image.xs {
-    top: 5px;
-    left: 8px;
-}
-
-.image.s {
-    top: 4px;
-    left: 8px;
-}
-
-.image.m {
-    top: 5px;
-    left: 10px;
-}
-
-.image.l {
-    top: 4px;
-    left: 12px;
-}
-
-.image.xl {
-    top: 5px;
-    left: 12px;
+.dropdownIconActive {
+  transform: rotate(180deg);
 }

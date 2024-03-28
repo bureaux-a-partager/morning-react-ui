@@ -50,3 +50,18 @@ export function sizeToGap(size: Size) {
       return 8;
   }
 }
+
+export function sizeToHeight(size: Size) {
+  switch (size) {
+    case Size.xl:
+      return 42;
+    case Size.l:
+      return 36;
+    case Size.m:
+      return 30;
+    case Size.s:
+      return 24;
+    case Size.xs:
+      return 18;
+  }
+}

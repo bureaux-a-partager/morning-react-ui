@@ -7,6 +7,7 @@ import React, {
   KeyboardEvent,
   MouseEvent,
   useEffect,
+  InputHTMLAttributes,
 } from 'react';
 import classNames from 'classnames';
 import Image from 'next/image';
@@ -14,6 +15,7 @@ import ParentInput from '@/components/inputs/ParentInput';
 import { Size, sizeToNumber } from '@/utils/Enum';
 import { InputProps } from '@/components/inputs/types';
 import styles from '../input.module.css';
+import useInput from './useInput';
 
 type TextInputProps = InputProps & {
   placeholder?: string;
@@ -23,9 +25,16 @@ type TextInputProps = InputProps & {
   setCursorPosition?: (input: HTMLInputElement) => void;
   imageSrc?: string;
   imageAlt?: string;
+  showClearButton?: boolean;
+  showDropdownIcon?: boolean;
+  onClear?: () => void;
+  isDropdownActive?: boolean;
 };
 
-const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
+type TextInputHtmlProps = TextInputProps &
+  Omit<InputHTMLAttributes<HTMLInputElement>, keyof TextInputProps>;
+
+const TextInput = forwardRef<HTMLInputElement, TextInputHtmlProps>(
   (
     {
       label,
@@ -41,6 +50,10 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       disabled,
       imageSrc,
       imageAlt,
+      showClearButton,
+      showDropdownIcon,
+      onClear,
+      isDropdownActive,
       ...props
     },
     ref,
@@ -78,6 +91,8 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       handleCursorChange(event.currentTarget.selectionStart);
     };
 
+    const { handleWrapperClick } = useInput({ inputRef });
+
     return (
       <ParentInput
         label={label}
@@ -87,24 +102,28 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         inputRef={inputRef}
         disabled={disabled}
       >
-        <div className={styles.wrapper}>
+        <div
+          className={classNames(
+            styles.wrapper,
+            `padding-${size}`,
+            { ['cursorText']: !disabled },
+            {
+              [styles.error]: isError,
+            },
+          )}
+          onClick={handleWrapperClick}
+        >
           {imageSrc && (
             <Image
               src={imageSrc}
               alt={imageAlt || 'input icon'}
               width={sizeToNumber(size)}
               height={sizeToNumber(size)}
-              className={classNames(styles[size], styles.image)}
             />
           )}
           <input
-            className={classNames(
-              styles.input,
-              styles[size],
-              { [styles.error]: isError },
-              { [styles.disabled]: 'disabled' },
-              { [styles.hasImage]: imageSrc },
-            )}
+            type='text'
+            className={classNames(styles.input, `font-size-${size}`)}
             ref={inputRef}
             value={value}
             placeholder={placeholder}
@@ -113,6 +132,27 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
             onClick={handleKeyUpOrClick}
             {...props}
           />
+          {showClearButton && (
+            <Image
+              src='https://cdn.morning.fr/icons/clear-button.svg'
+              alt='Clear'
+              onClick={onClear}
+              width={sizeToNumber(size)}
+              height={sizeToNumber(size)}
+              className={'pointer'}
+            />
+          )}
+          {showDropdownIcon && (
+            <Image
+              src='https://cdn.morning.fr/icons/arrow.svg'
+              alt='Dropdown'
+              width={sizeToNumber(size)}
+              height={sizeToNumber(size)}
+              className={classNames(styles.dropdownIcon, {
+                [styles.dropdownIconActive]: isDropdownActive,
+              })}
+            />
+          )}
         </div>
       </ParentInput>
     );

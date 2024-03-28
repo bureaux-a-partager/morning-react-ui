@@ -25,11 +25,7 @@
     "selector-no-qualifying-type": [
       true,
       {
-        "ignore": [
-          "attribute",
-          "class",
-          "id"
-        ]
+        "ignore": ["attribute", "class", "id"]
       }
     ],
     "value-no-vendor-prefix": true,
@@ -37,15 +33,11 @@
     "rule-empty-line-before": [
       "always-multi-line",
       {
-        "except": [
-          "first-nested"
-        ],
-        "ignore": [
-          "after-comment"
-        ]
+        "except": ["first-nested"],
+        "ignore": ["after-comment"]
       }
     ],
-    "selector-class-pattern": "^([a-z][a-zA-Z0-9]+|[a-z])$",
+    "selector-class-pattern": "^[a-z]([-a-zA-Z0-9]+)*(-[a-z]{1,2})?$",
     "no-empty-source": true
   }
 }

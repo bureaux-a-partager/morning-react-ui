@@ -1,9 +1,17 @@
-import React, { ChangeEvent, forwardRef, useEffect, useState } from 'react';
+import React, {
+  ChangeEvent,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import classNames from 'classnames';
 import { Size } from '@/utils/Enum';
 import ParentInput from '@/components/inputs/ParentInput';
 import { InputProps } from '@/components/inputs/types';
 import styles from '../input.module.css';
+import useInput from './useInput';
 
 type NumberInputProps = InputProps & {
   value: number | undefined;
@@ -28,7 +36,9 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
     },
     ref,
   ) => {
+    const inputRef = useRef<HTMLInputElement>(null);
     const [inputValue, setInputValue] = useState<number | undefined>(value);
+    useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
     const getValidValue = (val: number | undefined): number => {
       if (val === undefined) {
@@ -79,31 +89,41 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       setInputValue(value);
     }, [value]);
 
+    const { handleWrapperClick } = useInput({ inputRef });
+
     return (
       <ParentInput
         label={label}
         sublabel={sublabel}
         isLabelBold={isLabelBold}
         size={size}
+        inputRef={inputRef}
         disabled={disabled}
       >
-        <input
-          type='number'
+        <div
           className={classNames(
-            styles.input,
-            styles[size],
-            { [styles.error]: isError },
-            { [styles.disabled]: 'disabled' },
+            styles.wrapper,
+            `padding-${size}`,
+            { ['cursorText']: !disabled },
+            {
+              [styles.error]: isError,
+            },
           )}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          onBlur={handleBlur}
-          ref={ref}
-          value={isNaN(getValidValue(inputValue)) ? '' : inputValue}
-          min={min}
-          max={max}
-          disabled={disabled}
-        />
+          onClick={handleWrapperClick}
+        >
+          <input
+            type='number'
+            className={classNames(styles.input, `font-size-${size}`)}
+            ref={inputRef}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            onBlur={handleBlur}
+            value={isNaN(getValidValue(inputValue)) ? '' : inputValue}
+            min={min}
+            max={max}
+            disabled={disabled}
+          />
+        </div>
       </ParentInput>
     );
   },

@@ -1,107 +1,193 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-    -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
 
-    --titling-font: 'Titling Gothic FB Nrm Bd', sans-serif;
-    --titling-extended-font: 'Titling gothic extended', sans-serif;
-    --titling-comp-font: 'Titling Gothic FB Comp', sans-serif;
-    --space-grotesk: 'Space Grotesk', sans-serif;
-    --white: #fff;
-    --black: #000;
+  --titling-font: 'Titling Gothic FB Nrm Bd', sans-serif;
+  --titling-extended-font: 'Titling gothic extended', sans-serif;
+  --titling-comp-font: 'Titling Gothic FB Comp', sans-serif;
+  --space-grotesk: 'Space Grotesk', sans-serif;
+  --white: #fff;
+  --black: #000;
 
-    /* Grey */
-    --cloud: #F6F8F8;
-    --silver: #EEF0F2;
-    --ash: #E5E9EB;
-    --stone: #B0BABF;
-    --iron: #6E7C87;
-    --coal: #252C32;
+  /* Grey */
+  --cloud: #f6f8f8;
+  --silver: #eef0f2;
+  --ash: #e5e9eb;
+  --stone: #b0babf;
+  --iron: #6e7c87;
+  --coal: #252c32;
 
-    /* Blue */
-    --sky: #EBF7FF;
-    --azure: #4095F7;
-    --sapphire: #0E73F6;
-    --navy: #0452C8;
+  /* Blue */
+  --sky: #ebf7ff;
+  --azure: #4095f7;
+  --sapphire: #0e73f6;
+  --navy: #0452c8;
 
-    /* Green */
-    --mint: #EBFFF1;
-    --emerald: #47D16C;
-    --forest: #119C2B;
+  /* Green */
+  --mint: #ebfff1;
+  --emerald: #47d16c;
+  --forest: #119c2b;
 
-    /* Red */
-    --petal: #FFEFEB;
-    --cherry: #F2271C;
-    --brick: #CC0905;
+  /* Red */
+  --petal: #ffefeb;
+  --cherry: #f2271c;
+  --brick: #cc0905;
 
-    /* Orange */
-    --peach: #FAEADA;
-    --amber: #E27940;
-    --cinnamon: #AE4220;
+  /* Orange */
+  --peach: #faeada;
+  --amber: #e27940;
+  --cinnamon: #ae4220;
 
-    /* Yellow */
-    --vanilla: #FFFCC2;
-    --sunflower: #F8DC4F;
-    --mustard: #D29404;
+  /* Yellow */
+  --vanilla: #fffcc2;
+  --sunflower: #f8dc4f;
+  --mustard: #d29404;
 
-    /* Font size */
-    --font-size-xxl: 24px;
-    --font-size-xl: 18px;
-    --font-size-l: 16px;
-    --font-size-normal: 14px;
-    --font-size-s: 12px;
-    --font-size-xs: 10px;
+  /* Font size */
+  --font-size-xxl: 24px;
+  --font-size-xl: 18px;
+  --font-size-l: 16px;
+  --font-size-m: 14px;
+  --font-size-s: 12px;
+  --font-size-xs: 10px;
 
-    /* Gap */
-    --gap-horizontal: 12px;
-    --gap-vertical: 20px;
+  /* Gap */
+  --gap-horizontal: 12px;
+  --gap-vertical: 20px;
+  --gap-xxl: 24px;
+  --gap-xl: 26px;
+  --gap-l: 24px;
+  --gap-m: 16px;
+  --gap-s: 12px;
+  --gap-xs: 8px;
 
-    .pointer {
-        cursor: pointer;
-    }
+  /* Padding */
+  --padding-xl: 7px 14px;
+  --padding-l: 6px 12px;
+  --padding-m: 5px 10px;
+  --padding-s: 4px 8px;
+  --padding-xs: 3px 6px;
 
-    *:disabled,
-    *.disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-    }
-
-    /* Filter */
-    --filter-sky: invert(84%) sepia(23%) saturate(553%) hue-rotate(193deg) brightness(111%) contrast(104%);
-    --filter-azure: invert(46%) sepia(97%) saturate(2009%) hue-rotate(195deg) brightness(105%) contrast(94%);
-    --filter-sapphire: invert(57%) sepia(78%) saturate(7478%) hue-rotate(206deg) brightness(101%) contrast(93%);;
-    --filter-navy: invert(20%) sepia(45%) saturate(5421%) hue-rotate(212deg) brightness(94%) contrast(97%);
+  /* Filter */
+  --filter-sky: invert(84%) sepia(23%) saturate(553%) hue-rotate(193deg)
+    brightness(111%) contrast(104%);
+  --filter-azure: invert(46%) sepia(97%) saturate(2009%) hue-rotate(195deg)
+    brightness(105%) contrast(94%);
+  --filter-sapphire: invert(57%) sepia(78%) saturate(7478%) hue-rotate(206deg)
+    brightness(101%) contrast(93%);
+  --filter-navy: invert(20%) sepia(45%) saturate(5421%) hue-rotate(212deg)
+    brightness(94%) contrast(97%);
 }
 
 /* Fonts */
 @font-face {
-    font-family: 'Titling gothic fb';
-    src: url('https://cdn.morning.fr/fonts/TitlingGothicFBNormalMedium.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Titling gothic fb';
+  src: url('https://cdn.morning.fr/fonts/TitlingGothicFBNormalMedium.otf')
+    format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Titling gothic fb Nrm Bd';
-    src: url('https://cdn.morning.fr/fonts/TitlingGothicFBNormalBold.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Titling gothic fb Nrm Bd';
+  src: url('https://cdn.morning.fr/fonts/TitlingGothicFBNormalBold.otf')
+    format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Titling gothic fb comp';
-    src: url('https://cdn.morning.fr/fonts/TitlingGothicFBComp-Black.otf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Titling gothic fb comp';
+  src: url('https://cdn.morning.fr/fonts/TitlingGothicFBComp-Black.otf')
+    format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Titling gothic extended';
-    src: url('https://cdn.morning.fr/fonts/TitlingGothicFBExt-Reg.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Titling gothic extended';
+  src: url('https://cdn.morning.fr/fonts/TitlingGothicFBExt-Reg.otf')
+    format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.cursorText {
+  cursor: text;
+}
+
+*:disabled,
+*.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  user-select: none;
+}
+
+.font-size-xs {
+  font-size: var(--font-size-xs);
+}
+
+.font-size-s {
+  font-size: var(--font-size-s);
+}
+
+.font-size-m {
+  font-size: var(--font-size-m);
+}
+
+.font-size-l {
+  font-size: var(--font-size-l);
+}
+
+.font-size-xl {
+  font-size: var(--font-size-xl);
+}
+
+.gap-xs {
+  gap: var(--gap-xs);
+}
+
+.gap-s {
+  gap: var(--gap-s);
+}
+
+.gap-m {
+  gap: var(--gap-m);
+}
+
+.gap-l {
+  gap: var(--gap-l);
+}
+
+.gap-xl {
+  gap: var(--gap-xl);
+}
+
+.padding-xs {
+  padding: var(--padding-xs);
+}
+
+.padding-s {
+  padding: var(--padding-s);
+}
+
+.padding-m {
+  padding: var(--padding-m);
+}
+
+.padding-l {
+  padding: var(--padding-l);
+}
+
+.padding-xl {
+  padding: var(--padding-xl);
 }
