@@ -1,6 +1,8 @@
 import React, { ChangeEvent, forwardRef, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { format, setMinutes, setHours } from 'date-fns';
+import { isAfter } from '@/node_modules/date-fns/isAfter';
+import { isEqual } from '@/node_modules/date-fns/isEqual';
 import { Size } from '@/utils/Enum';
 import ParentInput from '@/components/inputs/ParentInput';
 import { BasicInputProps, InputProps } from '@/components/inputs/types';
@@ -8,10 +10,10 @@ import styles from '../input.module.css';
 
 type TimeInputProps = BasicInputProps &
   InputProps & {
-    value: Date;
-    onChange: (time: Date) => void;
-    setError: (isError: boolean) => void;
-    callback?: () => boolean;
+    value: Date | false | null;
+    min?: string;
+    max?: string;
+    onChange: (time: Date | null) => void;
   };
 
 const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
@@ -22,17 +24,19 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
       isLabelBold,
       size = Size.m,
       value,
-      isError,
       disabled,
+      isError,
+      min,
+      max,
       onChange,
-      setError,
-      callback,
     },
     ref,
   ) => {
-    const [inputValue, setInputValue] = useState<string>(
-      format(value, 'HH:mm'),
+    const [inputValue, setInputValue] = useState<string | null>(
+      value ? format(value, 'HH:mm') : null,
     );
+
+    const [error, setError] = useState<boolean>(false);
 
     const stringToTime = (time: string): [number, number] => {
       const [hours, minutes] = time
@@ -50,13 +54,34 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
         return false;
       }
       const [hours, minutes] = stringToTime(time);
-      return (
-        hours >= 0 &&
-        hours < 24 &&
-        minutes >= 0 &&
-        minutes < 60 &&
-        (callback ? callback() : true)
-      );
+      return hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60;
+    };
+
+    const isWithinEdges = (
+      time: string,
+      minEdge?: string,
+      maxEdge?: string,
+    ): boolean => {
+      const [hour, minute] = stringToTime(time);
+      const reference = setMinutes(setHours(new Date(), hour), minute);
+      let isRefAfterMin = true;
+      let isRefBeforeMax = true;
+
+      if (minEdge && isStringValidAsTime(minEdge)) {
+        const [minHour, minMinute] = stringToTime(minEdge);
+        const minTime = setMinutes(setHours(new Date(), minHour), minMinute);
+        isRefAfterMin =
+          isEqual(reference, minTime) || isAfter(reference, minTime);
+      }
+
+      if (maxEdge && isStringValidAsTime(maxEdge)) {
+        const [maxHour, maxMinute] = stringToTime(maxEdge);
+        const maxTime = setMinutes(setHours(new Date(), maxHour), maxMinute);
+        isRefBeforeMax =
+          isEqual(reference, maxTime) || isAfter(maxTime, reference);
+      }
+
+      return isRefBeforeMax && isRefAfterMin;
     };
 
     /**
@@ -64,9 +89,13 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
      * Function is called on every change in input value
      */
     const reformatTime = (
-      time: string,
+      time: string | null,
       event: ChangeEvent<HTMLInputElement>,
-    ): string => {
+    ): string | null => {
+      if (time == null || time == '') {
+        return null;
+      }
+
       // First try to find a ':' in the input value to match a pattern like 'HH:mm'
       if (time.match(/:/g)) {
         // If matched, will then split the string using ':' to get an hour value and a minute value
@@ -77,7 +106,7 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
       }
 
       // If the pattern 'HH:mm' is not matched, will try to see if a ':' was in previous value
-      if (inputValue.match(/:/g)) {
+      if (inputValue != null && inputValue.match(/:/g)) {
         // If that was the case, means that the ':' was erased
         // Will then split the previous value using ':' to get a previous hour value and previous minute value
         // Erasing a ':' means that user tried to erased last digit of hour value, will reformat a time value accordingly
@@ -97,29 +126,50 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
       }
 
       // If nothing neither current nor previous values have ':', then proceed as normal
-      return time.length < 2 ? time : `${time}:`;
+      return time.length < 2
+        ? time
+        : parseInt(time) >= 24
+          ? `${time[0]}:${time[1]}`
+          : `${time}:`;
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target.value;
       const reformatedNewValue = reformatTime(newValue, event);
-      const validAsTime = isStringValidAsTime(reformatedNewValue);
 
+      if (reformatedNewValue == null) {
+        setInputValue(reformatedNewValue);
+        setError(false);
+        return;
+      }
+
+      const validAsTime = isStringValidAsTime(reformatedNewValue);
       setError(!validAsTime);
 
       if (validAsTime) {
+        setError(!isWithinEdges(reformatedNewValue, min, max));
         setInputValue(reformatedNewValue);
       }
     };
 
     const handleBlur = () => {
+      if (!inputValue) {
+        onChange(null);
+        setError(false);
+        return;
+      }
+
+      setError(!isWithinEdges(inputValue, min, max));
       const [hours, minutes] = stringToTime(inputValue);
-      setError(false);
-      onChange(setMinutes(setHours(new Date(), hours), minutes));
+      onChange(
+        isWithinEdges(inputValue, min, max)
+          ? setMinutes(setHours(new Date(), hours), minutes)
+          : false,
+      );
     };
 
     useEffect(() => {
-      setInputValue(format(value, 'HH:mm'));
+      setInputValue(value ? format(value, 'HH:mm') : null);
     }, [value]);
 
     return (
@@ -135,14 +185,14 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
             className={classNames(
               styles.input,
               styles[size],
-              { [styles.error]: isError },
+              { [styles.error]: isError || error },
               { [styles.disabled]: disabled },
             )}
             ref={ref}
             placeholder={'HH:MM'}
             disabled={disabled}
             type='text'
-            value={inputValue}
+            value={inputValue ?? ''}
             onChange={handleChange}
             onBlur={handleBlur}
           />
