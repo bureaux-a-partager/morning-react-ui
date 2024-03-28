@@ -45,6 +45,19 @@ const updateSelectionState = (
   return updatedState;
 };
 
+const setAtTrueAndOthersAtFalse = (
+  selectionState: SelectionState,
+  keyToUpdate: string,
+): SelectionState => {
+  const updatedState: SelectionState = { ...selectionState };
+  Object.keys(updatedState).forEach((key) => {
+    updatedState[key] = false;
+  });
+
+  updatedState[keyToUpdate] = true;
+  return updatedState;
+};
+
 const selectionStateToString = (selectionState: SelectionState): string => {
   const stringRepresentation = Object.entries(selectionState)
     .filter(([, value]) => value)
@@ -123,4 +136,5 @@ export {
   getCurrentElementFromCursorPosition,
   removeElementFromSelectionState,
   getElementPositionInSelectionState,
+  setAtTrueAndOthersAtFalse,
 };

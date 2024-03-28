@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    gap: 4px;
+    padding: 6px 0;
+}
+
+.radio {
+    display: inline-block;
+    mask-size: contain;
+    transition: 0.1s ease-in-out;
+    cursor: pointer;
+
+    &.active {
+        mask-image: url("https://cdn.morning.fr/icons/radio-active.svg");
+        background-color: var(--sapphire);
+    }
+
+    &.empty {
+        mask-image: url("https://cdn.morning.fr/icons/radio-empty.svg");
+        background-color: var(--ash);
+    }
+}
+
+.label {
+    color: var(--coal);
+}

@@ -28,6 +28,12 @@ export default function Home() {
       </Button>
       <Button
         variant={ButtonVariant.Secondary}
+        onClick={() => router.push('/radio')}
+      >
+        Radio
+      </Button>
+      <Button
+        variant={ButtonVariant.Secondary}
         onClick={() => router.push('/utils')}
       >
         Utils
