@@ -8,23 +8,29 @@ import Columns from '@/components/layout/Columns';
 import Column from '@/components/layout/Column';
 import { Size } from '@/utils/Enum';
 import NumberInput from '@/components/inputs/textField/NumberInput';
+import SelectInput from '@/components/inputs/selectField/SelectInput';
 import TimeInput from '@/components/inputs/textField/TimeInput';
 
 export default function Page() {
-  const [value, setValue] = useState<string>('');
+  const [textValue, setTextValue] = useState<string>('');
   const [numberValue, setNumberValue] = useState<number | undefined>(undefined);
   const [timeValue, setTimeValue] = useState<Date>(new Date());
   const [isTimeValueError, setIsTimeValueError] = useState<boolean>(false);
+  const [selectValue, setSelectValue] = useState<string>('');
 
   const handleTextChange: ChangeEventHandler<HTMLInputElement> = (
     e: ChangeEvent<HTMLInputElement>,
   ): void => {
     const newValue: string = e.target.value;
-    setValue(newValue);
+    setTextValue(newValue);
   };
 
   const handleNumberChange = (newNumberValue: number) => {
     setNumberValue(newNumberValue);
+  };
+
+  const handleSelectChange = (newSelectValue: string) => {
+    setSelectValue(newSelectValue);
   };
 
   const handleTimeChange = (newTimeValue: Date) => {
@@ -41,6 +47,7 @@ export default function Page() {
     placeholder?: string;
     isError?: boolean;
     disabled?: boolean;
+    isRequired?: boolean;
     imageSrc?: string;
     imageAlt?: string;
   }) => {
@@ -66,6 +73,8 @@ export default function Page() {
     max?: number;
     isError?: boolean;
     disabled?: boolean;
+    isRequired?: boolean;
+    placeholder?: string;
   }) => {
     return (
       <>
@@ -74,6 +83,30 @@ export default function Page() {
         <NumberInput {...props} size={Size.m} />
         <NumberInput {...props} size={Size.l} />
         <NumberInput {...props} size={Size.xl} />
+      </>
+    );
+  };
+
+  const renderSelectInputs = (props: {
+    label?: string;
+    sublabel?: string;
+    isLabelBold?: boolean;
+    size?: Size;
+    options: string[];
+    placeholder?: string;
+    disabled?: boolean;
+    isError?: boolean;
+    isRequired?: boolean;
+    value: string;
+    onChange: (value: string) => void;
+  }) => {
+    return (
+      <>
+        <SelectInput {...props} size={Size.xs} />
+        <SelectInput {...props} size={Size.s} />
+        <SelectInput {...props} size={Size.m} />
+        <SelectInput {...props} size={Size.l} />
+        <SelectInput {...props} size={Size.xl} />
       </>
     );
   };
@@ -110,21 +143,21 @@ export default function Page() {
             {renderTextInputs({
               label: 'Label',
               placeholder: 'With label',
-              value: value,
+              value: textValue,
               onChange: handleTextChange,
             })}
             {renderTextInputs({
               label: 'Label',
               isLabelBold: true,
               placeholder: 'With bold label',
-              value: value,
+              value: textValue,
               onChange: handleTextChange,
             })}
             {renderTextInputs({
               label: 'Label',
               sublabel: 'Sublabel',
               placeholder: 'With label and sublabel',
-              value: value,
+              value: textValue,
               onChange: handleTextChange,
             })}
           </Column>
@@ -132,19 +165,19 @@ export default function Page() {
             <h1>TextInput</h1>
             {renderTextInputs({
               placeholder: 'Simple input',
-              value: value,
-              onChange: handleTextChange,
-            })}
-            {renderTextInputs({
-              placeholder: 'Error input',
-              isError: true,
-              value: value,
+              value: textValue,
               onChange: handleTextChange,
             })}
             {renderTextInputs({
               placeholder: 'Disabled input',
               disabled: true,
-              value: value,
+              value: textValue,
+              onChange: handleTextChange,
+            })}
+            {renderTextInputs({
+              placeholder: 'Required',
+              value: textValue,
+              isRequired: true,
               onChange: handleTextChange,
             })}
           </Column>
@@ -154,7 +187,14 @@ export default function Page() {
               placeholder: 'Input with image',
               imageSrc: 'https://cdn.morning.fr/logos/logo_google.png',
               imageAlt: 'google logo',
-              value: value,
+              value: textValue,
+              onChange: handleTextChange,
+            })}
+            {renderTextInputs({
+              placeholder: 'Input with image',
+              imageSrc: 'https://cdn.morning.fr/icons/magnifying-glass.svg',
+              imageAlt: 'google logo',
+              value: textValue,
               onChange: handleTextChange,
             })}
           </Column>
@@ -164,19 +204,51 @@ export default function Page() {
               label: 'Simple',
               sublabel: 'Sublabel',
               value: numberValue,
+              placeholder: 'placeholder',
               onChange: handleNumberChange,
             })}
             {renderNumberInputs({
-              label: 'Error',
-              isError: true,
+              label: 'Required',
+              isRequired: true,
               value: numberValue,
+              placeholder: 'placeholder',
               onChange: handleNumberChange,
             })}
             {renderNumberInputs({
               label: 'Disabled',
               disabled: true,
               value: numberValue,
+              placeholder: 'placeholder',
               onChange: handleNumberChange,
+            })}
+          </Column>
+          <Column>
+            <h1>SelectInput</h1>
+            {renderSelectInputs({
+              label: 'Simple',
+              sublabel: 'Sublabel',
+              placeholder: 'Placeholder',
+              options: ['one', 'two', 'three', 'four', 'five'],
+              value: selectValue,
+              onChange: handleSelectChange,
+            })}
+            {renderSelectInputs({
+              label: 'Required',
+              sublabel: 'Sublabel',
+              placeholder: 'Placeholder',
+              options: ['one', 'two', 'three', 'four', 'five'],
+              isRequired: true,
+              value: selectValue,
+              onChange: handleSelectChange,
+            })}
+            {renderSelectInputs({
+              label: 'Disabled',
+              sublabel: 'Sublabel',
+              placeholder: 'Placeholder',
+              options: ['one', 'two', 'three', 'four', 'five'],
+              disabled: true,
+              value: selectValue,
+              onChange: handleSelectChange,
             })}
           </Column>
           <Column>

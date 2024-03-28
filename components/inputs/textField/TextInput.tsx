@@ -16,7 +16,6 @@ import { InputProps } from '@/components/inputs/types';
 import styles from '../input.module.css';
 
 type TextInputProps = InputProps & {
-  placeholder?: string;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onCursorPositionChange?: (position: number | null) => void;
@@ -39,6 +38,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       placeholder,
       isError,
       disabled,
+      isRequired,
       imageSrc,
       imageAlt,
       ...props
