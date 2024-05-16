@@ -164,7 +164,7 @@ const MultiCheckbox = ({
                 setHoveredIndex(null);
               }
             }}
-            className={'fontWeightMedium'}
+            className={'font-weight-medium'}
           />
         )}
         {checkboxes}

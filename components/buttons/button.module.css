@@ -1,4 +1,3 @@
-/* Base button styling */
 .button {
     border: none;
     border-radius: 6px;
@@ -7,17 +6,19 @@
     font-size: var(--font-size-m);
     font-weight: 600;
     line-height: 20px;
-    display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     cursor: pointer;
-
-    .image {
-        display: flex;
-    }
-
     transition: background-color ease-in-out 300ms;
+    display: inline-flex;
+}
+
+.button .image {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
 }
 
 .button.xxl,
@@ -61,16 +62,15 @@
     font-size: var(--font-size-xs);
 }
 
-/* Content and icon styling */
 .content,
 .icon {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 4px;
+    white-space: nowrap;
 }
 
-/* Loading overlay styling */
 .loadingOverlay {
     position: absolute;
     inset: 0;
@@ -104,8 +104,6 @@
     position: absolute;
     inset: 0;
     border: 1px solid var(--ash);
-
-    /* Visual "inner border" */
     box-sizing: border-box;
     pointer-events: none;
     border-radius: 6px;
