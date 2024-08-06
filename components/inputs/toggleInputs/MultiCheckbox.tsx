@@ -3,12 +3,12 @@ import classNames from 'classnames';
 import ParentInput from 'morning-react-ui/components/inputs/ParentInput';
 import { SelectionState, TriState } from 'morning-react-ui/types/dataTypes';
 import { Size } from 'morning-react-ui/utils/Enum';
+import { getSelectionStatus } from 'morning-react-ui/utils/selectionState/selectionStateInfo';
 import {
-  getSelectionStatus,
   setAllFalse,
   setAllTrue,
   updateSelectionState,
-} from 'morning-react-ui/utils/selectionStateUtils';
+} from 'morning-react-ui/utils/selectionState/selectionStateModifiers';
 import { BasicInputProps } from '../propsTypes';
 import styles from './multiToggleInputs.module.css';
 import Checkbox from './single/Checkbox';

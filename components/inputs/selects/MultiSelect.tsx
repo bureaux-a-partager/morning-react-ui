@@ -3,10 +3,8 @@ import TextInput from 'morning-react-ui/components/inputs/textField/TextInput';
 import MultiCheckbox from 'morning-react-ui/components/inputs/toggleInputs/MultiCheckbox';
 import { SelectionState } from 'morning-react-ui/types/dataTypes';
 import { Size } from 'morning-react-ui/utils/Enum';
-import {
-  atLeastOneTrue,
-  setAllFalse,
-} from 'morning-react-ui/utils/selectionStateUtils';
+import { atLeastOneTrue } from 'morning-react-ui/utils/selectionState/selectionStateInfo';
+import { setAllFalse } from 'morning-react-ui/utils/selectionState/selectionStateModifiers';
 import { SelectsProps } from '../propsTypes';
 import useMultiSelect from './hooks/useMultiSelect';
 import styles from './selects.module.css';

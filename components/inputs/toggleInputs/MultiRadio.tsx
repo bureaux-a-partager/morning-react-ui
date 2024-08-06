@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import ParentInput from 'morning-react-ui/components/inputs/ParentInput';
 import { SelectionState } from 'morning-react-ui/types/dataTypes';
 import { Size } from 'morning-react-ui/utils/Enum';
-import { setAtTrueAndOthersAtFalse } from 'morning-react-ui/utils/selectionStateUtils';
+import { setAtTrueAndOthersAtFalse } from 'morning-react-ui/utils/selectionState/selectionStateModifiers';
 import { BasicInputProps } from '../propsTypes';
 import styles from './multiToggleInputs.module.css';
 import Radio from './single/Radio';

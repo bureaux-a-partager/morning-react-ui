@@ -9,17 +9,19 @@ import {
 } from 'react';
 import { SelectionState } from 'morning-react-ui/types/dataTypes';
 import { Size } from 'morning-react-ui/utils/Enum';
+import { selectionStateTrueToString } from 'morning-react-ui/utils/selectionState/selectionStateConverters';
 import {
   atLeastOneTrue,
   getCurrentElementFromCursorPosition,
   getElementPositionInSelectionState,
-  selectionStateTrueToString,
+  mergeAndValidateStates,
+} from 'morning-react-ui/utils/selectionState/selectionStateInfo';
+import {
   setAllFalse,
   setAllTrue,
-  mergeAndValidateStates,
   toggleSelectionStateAtIndex,
   updateSelectionState,
-} from 'morning-react-ui/utils/selectionStateUtils';
+} from 'morning-react-ui/utils/selectionState/selectionStateModifiers';
 import { normalizeString } from 'morning-react-ui/utils/stringUtils';
 
 type UseMultiSelectProps = {
