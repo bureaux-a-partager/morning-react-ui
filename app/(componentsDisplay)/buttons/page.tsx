@@ -116,7 +116,6 @@ export default function Page() {
         </LinkButton>
         <LinkButton
           onClick={handleClick}
-          {...props}
           startImageURL={
             hasStartImage &&
             `${process.env.NEXT_PUBLIC_MORNING_CDN_URL}icons/plus.svg`
@@ -126,6 +125,7 @@ export default function Page() {
             `${process.env.NEXT_PUBLIC_MORNING_CDN_URL}}icons/arrow-up-right-from-square.svg`
           }
           size={Size.l}
+          startImageClassName={buttonStyles.coloredLinkButtonImage}
         >
           {content}
         </LinkButton>
@@ -134,6 +134,8 @@ export default function Page() {
           {...props}
           startImageURL={`${process.env.NEXT_PUBLIC_MORNING_CDN_URL}icons/plus.svg`}
           endImageURL={`${process.env.NEXT_PUBLIC_MORNING_CDN_URL}icons/arrow-up-right-from-square.svg`}
+          startImageClassName={buttonStyles.coloredLinkButtonImage}
+          endImageClassName={buttonStyles.rotatedImage}
           size={Size.m}
         >
           {content}

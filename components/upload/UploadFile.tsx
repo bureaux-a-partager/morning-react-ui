@@ -9,6 +9,7 @@ import {
 } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames';
+import { ParentInput } from 'morning-react-ui/components';
 import { Button, ButtonVariant } from 'morning-react-ui/components/buttons';
 import { useToast } from 'morning-react-ui/components/Context/ToastContext';
 import { uploadFile } from 'morning-react-ui/services/googleCloudStorage';
@@ -16,8 +17,11 @@ import { generateFileName } from 'morning-react-ui/utils/file';
 import styles from './uploadFile.module.scss';
 
 interface UploadFileProps {
+  label?: string;
+  sublabel?: string;
   buttonLabel: string;
   fileUrl?: string;
+  className?: string;
   destinationBucket: string;
   destinationPath: string;
   onChange: Dispatch<string>;
@@ -29,8 +33,11 @@ interface UploadFileProps {
 }
 
 const UploadFile = ({
+  label = '',
+  sublabel = '',
   buttonLabel,
   fileUrl = '',
+  className,
   destinationBucket,
   destinationPath,
   onChange,
@@ -91,56 +98,63 @@ const UploadFile = ({
     reader.onload = () => {
       const content = reader.result?.toString() || '';
       setFile(content);
-      startTransition(() => handleFileUpload(content, selectedFile.name));
+      startTransition(() => {
+        handleFileUpload(content, selectedFile.name);
+      });
     };
     reader.readAsDataURL(selectedFile);
   };
 
   return (
-    <div className={styles.upload}>
-      <input
-        type='file'
-        style={{ display: 'none' }}
-        ref={fileInputRef}
-        onChange={onUpload}
-        accept={fileType}
-      />
-      <div
-        aria-label='preview'
-        className={classNames(styles.uploadArea, {
-          [styles.pending]: isPending,
-          ['error']: hasError || isError,
-        })}
-      >
-        {file ? (
-          <Image
-            src={file}
-            alt='Uploaded file'
-            fill
-            sizes='true'
-            className={styles.selectedImage}
+    <ParentInput label={label} sublabel={sublabel}>
+      <div className={styles.wrapper}>
+        <div className={classNames([styles.upload, className])}>
+          <input
+            type='file'
+            style={{ display: 'none' }}
+            ref={fileInputRef}
+            onChange={onUpload}
+            accept={fileType}
           />
-        ) : (
-          <span className={styles.imageIcon} />
-        )}
+          <div
+            aria-label='preview'
+            className={classNames(styles.uploadArea, {
+              [styles.pending]: isPending,
+              ['error']: hasError || isError,
+            })}
+          >
+            {file ? (
+              <Image
+                src={file}
+                alt='Uploaded file'
+                fill
+                sizes='true'
+                className={styles.selectedImage}
+                quality={100}
+              />
+            ) : (
+              <span className={styles.imageIcon} />
+            )}
+          </div>
+          <Button
+            isLoading={isPending}
+            onClick={openFileDialog}
+            variant={ButtonVariant.Secondary}
+            startImage={
+              <Image
+                src={`${process.env.NEXT_PUBLIC_MORNING_CDN_URL}icons/file-upload.svg`}
+                alt={'file upload'}
+                className={styles.uploadIcon}
+                fill
+                sizes={'true'}
+              />
+            }
+          >
+            {buttonLabel}
+          </Button>
+        </div>
       </div>
-      <Button
-        isLoading={isPending}
-        onClick={openFileDialog}
-        variant={ButtonVariant.Secondary}
-        startImage={
-          <Image
-            src={`${process.env.NEXT_PUBLIC_MORNING_CDN_URL}icons/file-upload.svg`}
-            alt={'file upload'}
-            className={styles.uploadIcon}
-            fill
-            sizes={'true'}
-          />
-        }
-      >
-        {buttonLabel}
-      </Button>
-    </div>
+    </ParentInput>
   );
 };
 

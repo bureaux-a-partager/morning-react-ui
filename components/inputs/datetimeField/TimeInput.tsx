@@ -2,12 +2,14 @@ import React, {
   ChangeEvent,
   forwardRef,
   useState,
-  useEffect,
   useImperativeHandle,
   useRef,
+  Dispatch,
+  KeyboardEventHandler,
 } from 'react';
 import classNames from 'classnames';
-import { format, setMinutes, setHours } from 'date-fns';
+import { format, setMinutes, setHours, setSeconds } from 'date-fns';
+import { UTCDate } from '@date-fns/utc';
 import ParentInput from 'morning-react-ui/components/inputs/ParentInput';
 import {
   isStringValidAsTime,
@@ -19,12 +21,14 @@ import styles from '../input.module.css';
 import { BasicInputProps, InputProps } from '../propsTypes';
 import useInput from '../textField/useInput';
 
+type Datez = UTCDate | null | undefined;
+
 type TimeInputProps = BasicInputProps &
   InputProps & {
-    value?: Date | null;
+    value?: Datez;
     min?: string;
     max?: string;
-    onChange: (time: Date | null | undefined) => void;
+    onChange: Dispatch<Datez>;
   };
 
 const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
@@ -130,14 +134,18 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
       const [hours, minutes] = stringToTime(inputValue);
       onChange(
         isTimeWithinEdges(inputValue, min, max)
-          ? setMinutes(setHours(new Date(), hours), minutes)
+          ? setSeconds(setMinutes(setHours(new UTCDate(), hours), minutes), 0)
           : null,
       );
     };
 
-    useEffect(() => {
-      setInputValue(value ? format(value, 'HH:mm') : null);
-    }, [value]);
+    const handlePress: KeyboardEventHandler<HTMLInputElement> = (
+      event: React.KeyboardEvent<HTMLInputElement>,
+    ) => {
+      if (event.key === 'Tab') {
+        setInputValue(value ? format(value, 'HH:mm') : null);
+      }
+    };
 
     const { handleWrapperClick } = useInput({ inputRef });
 
@@ -171,6 +179,8 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
             value={inputValue ?? ''}
             onChange={handleChange}
             onBlur={handleBlur}
+            onKeyUp={handleBlur}
+            onKeyDown={handlePress}
           />
         </div>
       </ParentInput>

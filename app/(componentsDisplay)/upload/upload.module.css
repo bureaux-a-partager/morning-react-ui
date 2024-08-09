@@ -1,0 +1,10 @@
+.size {
+    height: 284px;
+}
+
+.surrounded {
+    height: 284px;
+    width: 700px;
+    margin: 0 auto;
+    padding: 8px 10%;
+}

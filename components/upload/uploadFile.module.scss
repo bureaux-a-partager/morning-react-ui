@@ -5,6 +5,11 @@
   flex: 1;
 }
 
+.wrapper {
+  background-color: var(--cloud);
+  padding: 8px;
+}
+
 .uploadArea {
   background-color: var(--silver);
   width: 100%;
@@ -26,8 +31,6 @@
   }
 
   .selectedImage {
-    width: 100%;
-    height: 100%;
     border-radius: 5px;
     object-fit: cover;
   }

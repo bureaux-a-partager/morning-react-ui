@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { format } from 'date-fns';
+import { UTCDate } from '@date-fns/utc';
 import { addWeeks } from 'date-fns/addWeeks';
 import DateInput from 'morning-react-ui/components/inputs/datetimeField/DateInput';
 import TimeInput from 'morning-react-ui/components/inputs/datetimeField/TimeInput';
@@ -10,11 +11,13 @@ import Container from 'morning-react-ui/components/layout/Container';
 import Navigation from 'morning-react-ui/components/layout/Navigation';
 import { Size } from 'morning-react-ui/utils/Enum';
 
+type Datez = UTCDate | null | undefined;
+
 export default function Page() {
-  const [timeValue, setTimeValue] = useState<Date | null | undefined>(null);
+  const [timeValue, setTimeValue] = useState<Datez>(null);
   const [dateValue, setDateValue] = useState<Date | null | undefined>(null);
 
-  const handleTimeChange = (newTimeValue: Date | null | undefined) => {
+  const handleTimeChange = (newTimeValue: Datez) => {
     setTimeValue(newTimeValue);
   };
 
@@ -27,12 +30,12 @@ export default function Page() {
     sublabel?: string;
     isLabelBold?: boolean;
     size?: Size;
-    value?: Date | null;
+    value?: Datez;
     disabled?: boolean;
     isError?: boolean;
     min?: string;
     max?: string;
-    onChange: (event: Date | null | undefined) => void;
+    onChange: (event: Datez) => void;
   }) => {
     return (
       <>
@@ -73,6 +76,7 @@ export default function Page() {
       </Navigation>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <Container>
+          Selected time {timeValue && timeValue.toTimeString()}
           <Columns>
             <Column>
               <h1>DateInput</h1>

@@ -8,6 +8,8 @@ type LinkButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   startImageURL?: string;
   endImageURL?: string;
   className?: string;
+  startImageClassName?: string;
+  endImageClassName?: string;
   size?: Size;
 };
 
@@ -17,6 +19,8 @@ const LinkButton = ({
   endImageURL,
   size = Size.m,
   className,
+  startImageClassName,
+  endImageClassName,
   ...props
 }: LinkButtonProps) => {
   const linkButtonClass = classNames(styles.linkButton, className);
@@ -30,7 +34,7 @@ const LinkButton = ({
     >
       {startImageURL && (
         <span
-          className={styles.image}
+          className={classNames(styles.image, startImageClassName)}
           style={{
             maskImage: `url("${startImageURL}")`,
             width: `${sizeToNumber(size)}px`,
@@ -41,7 +45,7 @@ const LinkButton = ({
       {children}
       {endImageURL && (
         <span
-          className={styles.image}
+          className={classNames(styles.image, endImageClassName)}
           style={{
             maskImage: `url("${endImageURL}")`,
             width: `${sizeToNumber(size)}px`,

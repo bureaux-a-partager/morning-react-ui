@@ -21,6 +21,7 @@
     "*.css": "stylelint --fix"
   },
   "dependencies": {
+    "@date-fns/utc": "^1.2.0",
     "@google-cloud/storage": "^7.9.0",
     "@tiptap/extension-link": "^2.3.0",
     "@tiptap/extension-placeholder": "^2.3.0",

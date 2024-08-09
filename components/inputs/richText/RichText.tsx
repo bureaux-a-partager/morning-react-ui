@@ -7,6 +7,7 @@ import {
 } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames';
+import { HardBreak } from '@tiptap/extension-hard-break';
 import { Placeholder } from '@tiptap/extension-placeholder';
 import { Underline } from '@tiptap/extension-underline';
 import { useEditor, EditorContent } from '@tiptap/react';
@@ -54,6 +55,13 @@ const RichText = forwardRef<HTMLInputElement, RichTextProps>(
     const textEditor = useEditor({
       extensions: [
         StarterKit,
+        HardBreak.extend({
+          addKeyboardShortcuts() {
+            return {
+              Enter: () => this.editor.commands.setHardBreak(),
+            };
+          },
+        }),
         Underline,
         ControlClickLink.configure({ openOnClick: false }).extend({
           inclusive: false,
