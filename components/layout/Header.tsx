@@ -19,12 +19,12 @@ const Header = ({ title, children, style }: HeaderProps) => {
           <Image
             src={`${process.env.NEXT_PUBLIC_MORNING_CDN_URL}logos/logo_morning_black.png`}
             alt='logo'
-            width={90}
-            height={22}
-            style={{ marginTop: '3px', marginRight: '5px', cursor: 'pointer' }}
+            width={100}
+            height={30}
+            style={{ cursor: 'pointer' }}
             onClick={() => router.push('/')}
           />
-          <p>{title}</p>
+          <p className={styles.title}>{title}</p>
         </div>
         <div className={styles.children}>{children}</div>
       </div>

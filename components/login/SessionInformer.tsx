@@ -73,9 +73,7 @@ const SessionInformer = ({ session, size, signOut }: SessionInformerProps) => {
           {session?.user?.image && (
             <Avatar imageUrl={session.user.image} size={size} />
           )}
-          <p className='font-size-m font-weight-medium'>
-            {session?.user?.email}
-          </p>
+          <p className={styles.hide}>{session?.user?.email}</p>
         </div>
         {(isDropdownDisplayed || isAnimating) && (
           <div

@@ -34,6 +34,12 @@
     gap: 4px;
 }
 
+@media (width <= 768px) {
+    .hide {
+        display: none;
+    }
+}
+
 .dropdown {
     position: absolute;
     top: 30px;
@@ -45,6 +51,8 @@
     border-radius: 6px;
     border: 1px solid var(--ash);
     background-color: var(--white);
+    max-width: 90vw;
+    overflow-wrap: break-word;
 }
 
 .dropdownEnter {
