@@ -26,6 +26,27 @@ const SessionInformer = ({ session, size, signOut }: SessionInformerProps) => {
         setIsAnimating(false);
       }, 300);
     } else {
+      const wrapper = wrapperRef.current;
+      if (wrapper) {
+        const rect = wrapper.getBoundingClientRect();
+        const dropdownWidth = 200; // Approximate width of the dropdown
+        const viewportWidth = window.innerWidth;
+
+        // Reset to default center alignment
+        wrapper.style.transform = 'translateX(-50%)';
+
+        // Check if the dropdown goes outside the viewport on the right side
+        if (rect.left + dropdownWidth > viewportWidth) {
+          // Shift left if it overflows on the right
+          wrapper.style.transform = `translateX(-${rect.left + dropdownWidth - viewportWidth}px)`;
+        }
+
+        // Check if the dropdown goes outside the viewport on the left side
+        if (rect.left < 0) {
+          // Shift right if it overflows on the left
+          wrapper.style.transform = `translateX(${Math.abs(rect.left)}px)`;
+        }
+      }
       setIsDropdownDisplayed(true);
     }
   };
@@ -73,9 +94,7 @@ const SessionInformer = ({ session, size, signOut }: SessionInformerProps) => {
           {session?.user?.image && (
             <Avatar imageUrl={session.user.image} size={size} />
           )}
-          <p className='font-size-m font-weight-medium'>
-            {session?.user?.email}
-          </p>
+          <p className={styles.hide}>{session?.user?.email}</p>
         </div>
         {(isDropdownDisplayed || isAnimating) && (
           <div
