@@ -317,3 +317,9 @@ canvas {
     vertical-align: middle;
     font-style: italic;
 }
+
+.hideOnMobile {
+    @media (max-width: 768px) {
+        display: none !important;
+    }
+}

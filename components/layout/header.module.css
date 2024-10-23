@@ -50,6 +50,7 @@
 
     .container {
         padding: 0 10px;
+        height: 40px;
     }
 
     .children {
