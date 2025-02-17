@@ -1,5 +1,6 @@
 import { CSSProperties, forwardRef, HTMLProps } from 'react';
 import classNames from 'classnames';
+import useIsMobile from 'morning-react-ui/components/hooks/useIsMobile';
 import { TriState } from 'morning-react-ui/types/dataTypes';
 import { Size, sizeToNumber } from 'morning-react-ui/utils/Enum';
 import styles from './checkbox.module.scss';
@@ -17,37 +18,43 @@ type CheckboxProps = {
 type CheckboxHTMLProps = Omit<HTMLProps<HTMLDivElement>, keyof CheckboxProps>;
 
 const Checkbox = forwardRef<HTMLDivElement, CheckboxProps & CheckboxHTMLProps>(
-  (
-    {
+  (props, ref) => {
+    const {
       label,
       onChange,
-      size = Size.m,
+      size,
       value,
       disabled = false,
       isError = false,
       className,
-      ...props
-    },
-    ref,
-  ) => {
-    const checkboxClass = classNames({
-      [styles.checkbox]: true,
+      ...restProps
+    } = props;
+
+    const isMobile = useIsMobile();
+    const finalSize = size ?? (isMobile ? Size.l : Size.m);
+
+    const checkboxClass = classNames(styles.checkbox, {
       [styles.active]: value === TriState.true,
       [styles.empty]: value === TriState.false,
       [styles.minus]: value === TriState.indeterminate,
       ['disabled']: disabled,
     });
+
     const handleClick = () => {
-      if (disabled) {
-        return;
+      if (!disabled) {
+        onChange(value === TriState.false ? TriState.true : TriState.false);
       }
-      onChange(value === TriState.false ? TriState.true : TriState.false);
     };
+
     return (
       <div
-        className={classNames(styles.wrapper, `font-size-${size}`, className)}
+        className={classNames(
+          styles.wrapper,
+          `font-size-${finalSize}`,
+          className,
+        )}
         ref={ref}
-        {...props}
+        {...restProps}
       >
         <span
           className={classNames(checkboxClass, {
@@ -56,8 +63,8 @@ const Checkbox = forwardRef<HTMLDivElement, CheckboxProps & CheckboxHTMLProps>(
           })}
           onClick={handleClick}
           style={{
-            width: `${sizeToNumber(size)}px`,
-            height: `${sizeToNumber(size)}px`,
+            width: `${sizeToNumber(finalSize)}px`,
+            height: `${sizeToNumber(finalSize)}px`,
           }}
         ></span>
         <label

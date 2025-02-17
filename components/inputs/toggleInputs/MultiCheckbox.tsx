@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import classNames from 'classnames';
+import useIsMobile from 'morning-react-ui/components/hooks/useIsMobile';
 import ParentInput from 'morning-react-ui/components/inputs/ParentInput';
 import { SelectionState, TriState } from 'morning-react-ui/types/dataTypes';
 import { Size } from 'morning-react-ui/utils/Enum';
@@ -42,7 +43,7 @@ const MultiCheckbox = ({
   onChange,
   checkboxRefs,
   setCheckboxRefs,
-  size = Size.m,
+  size,
   inline = false,
   label,
   sublabel,
@@ -56,6 +57,8 @@ const MultiCheckbox = ({
   disabled = false,
   isError = false,
 }: MultiCheckboxProps) => {
+  const isMobile = useIsMobile();
+  const finalSize = size ?? (isMobile ? Size.l : Size.m);
   const [selectAllCheckbox, setSelectAllCheckbox] = useState<TriState>(
     TriState.false,
   );
@@ -78,9 +81,7 @@ const MultiCheckbox = ({
   };
 
   useEffect(() => {
-    if (!setCheckboxRefs) {
-      return;
-    }
+    if (!setCheckboxRefs) return;
     const requiredRefsCount =
       Object.keys(options).length + (isSelectAll ? 1 : 0);
 
@@ -139,7 +140,7 @@ const MultiCheckbox = ({
     <ParentInput
       label={label}
       sublabel={sublabel}
-      size={size}
+      size={finalSize}
       bold={bold}
       disabled={disabled}
     >

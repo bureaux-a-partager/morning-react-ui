@@ -24,33 +24,30 @@ type TextAreaInputProps = {
 } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'value'>;
 
 const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>(
-  (
-    {
+  (props, ref) => {
+    const {
       placeholder,
       label,
       sublabel,
       onChange,
       value,
       isError = false,
-      size = Size.m,
+      size,
       disabled = false,
       maxLength,
       className,
-      ...props
-    },
-    ref,
-  ) => {
+      ...restProps
+    } = props;
+
     const isMobile = useIsMobile();
     const finalSize = size ?? (isMobile ? Size.l : Size.m);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
     useImperativeHandle(ref, () => textAreaRef.current as HTMLTextAreaElement);
 
     const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-      if (maxLength && event.target.value.length > maxLength) {
-        return;
+      if (!maxLength || event.target.value.length <= maxLength) {
+        onChange(event);
       }
-      onChange(event);
     };
 
     return (
@@ -79,14 +76,12 @@ const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>(
             placeholder={placeholder}
             value={value}
             onChange={handleChange}
-            className={classNames(
-              styles.textArea,
-              { [styles.error]: isError },
-              `font-size-${finalSize}`,
-            )}
+            className={classNames(styles.textArea, `font-size-${finalSize}`, {
+              [styles.error]: isError,
+            })}
             disabled={disabled}
             maxLength={maxLength}
-            {...props}
+            {...restProps}
           />
         </div>
       </ParentInput>
