@@ -39,7 +39,7 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
       label,
       sublabel,
       bold,
-      size = Size.m,
+      size,
       value,
       disabled,
       isError,
